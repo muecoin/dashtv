@@ -1,7 +1,7 @@
 body{
     margin: 0; padding: 0;
-    color: #a1a1a1;
-    background-color: #ff9616;
+    color: #FF7000;
+    background-color: #0f1213;
     font-family: 'Roboto', sans-serif;
     font-size: 8vh;
     /*font-weight: 300;*/
@@ -12,7 +12,7 @@ a, a:visited{ color: #a1a1a1 }
 
 #box{
     position: relative;
-    background-color: #ff9616;
+    background-color: #0f1213;
     width: 150vh; /* 3:2 ratio */
     height: 100vh; /* 3:2 ratio */
     margin: 0 auto;
@@ -337,7 +337,7 @@ hr{ border: none; background-color: #747474; height: 0.3%; margin-top: 4%; }
     to { width: 100% }
 }
 
-body.light, .light #box{background-color: #f0edec;color: #5e5e5e}
+body.light, .light #box{background-color: #f0edec;color: #FF7000}
 .light div.o, .light #header1 > div > span.right{ color: #888 }
 .light #update_bar{background-color: #5e5e5e}
 .light #box > div {background-color: #d5d5d5}
