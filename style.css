@@ -1,7 +1,7 @@
 body{
     margin: 0; padding: 0;
     color: #a1a1a1;
-    background-color: #0f1213;
+    background-color: #ff9616;
     font-family: 'Roboto', sans-serif;
     font-size: 8vh;
     /*font-weight: 300;*/
@@ -12,7 +12,7 @@ a, a:visited{ color: #a1a1a1 }
 
 #box{
     position: relative;
-    background-color: #0f1213;
+    background-color: #ff9616;
     width: 150vh; /* 3:2 ratio */
     height: 100vh; /* 3:2 ratio */
     margin: 0 auto;
@@ -31,7 +31,7 @@ a, a:visited{ color: #a1a1a1 }
     margin: 4vh 0 0 4vh;
 }
 
-#dashValue{
+#mueValue{
     float: right;
     width: 38.5%;
     height: 25%;
@@ -61,7 +61,7 @@ a, a:visited{ color: #a1a1a1 }
     margin: 2vh 0 0 4vh;
 }
 
-#dashMonth{
+#mueMonth{
     float: left;
     width: 31.84%;
     height: 15%;
@@ -82,7 +82,7 @@ a, a:visited{ color: #a1a1a1 }
     margin: 2vh 0 0 4vh;
 }
 
-#dashDay{
+#mueDay{
     float: left;
     width: 31.84%;
     height: 15%;
@@ -119,7 +119,7 @@ a, a:visited{ color: #a1a1a1 }
     margin: 2vh 0 0 4vh;
 }
 
-#bottomLeft #fiatDash{
+#bottomLeft #fiatMue{
     display: inline-block !important;
     float: left;
     width: 43%;
@@ -134,7 +134,7 @@ a, a:visited{ color: #a1a1a1 }
     background-color: #161616;
 }
 
-#bottomLeft #btcDash{
+#bottomLeft #btcMue{
     width: 52%;
     display: inline-block !important;
 }
@@ -155,12 +155,12 @@ a, a:visited{ color: #a1a1a1 }
 
 .o{font-size: 50%}
 
-#value .v, #dashValue .v{
+#value .v, #mueValue .v{
     font-size: 150%;
     margin-top: 2vh;
 }
 
-#value .o, #dashValue .o{
+#value .o, #mueValue .o{
     font-size: 65%;
     margin: -0.4em 0 0 5.5vh;
 }
@@ -172,7 +172,7 @@ div.v{
 div.o{
     margin-left: 5vh;
     margin-top: -0.3em;
-    color: #777;
+    color: #ffffff;
 }
 
 #header1, #header2, #header3, #header4{ font-size: 42% }
@@ -251,8 +251,8 @@ div#loading img{
 #help{
     display: none;
     position: absolute !important;
-    background-color: #0f1213 !important;
-    color: #747474;
+    background-color: #ffffff !important;
+    color: #000000;
     top: 0;
     left: 0;
     right: 0;
@@ -270,7 +270,7 @@ h3{ margin-top: 5% }
     font-size: 75%;
     border: 1px solid #0f1213;
     background-color: #C3C3C3;
-    color: #0E0E0E;
+    color: red;
     width: 98.4%;
     padding: 0.8%;
     margin-bottom: 2%;
@@ -291,14 +291,14 @@ hr{ border: none; background-color: #747474; height: 0.3%; margin-top: 4%; }
     body{font-size: 5.328vw}
 
     #value{margin: 2.664vw 0 0 2.664vw}
-    #dashValue{margin: 2.664vw 2.664vw 0 0}
+    #mueValue{margin: 2.664vw 2.664vw 0 0}
     #header1{margin: 1.334vw 0 0 2.664vw}
     #header2{margin: 1.334vw 2.664vw 0 0}
     #fiatMonth{margin: 1.334vw 0 0 2.664vw}
-    #dashMonth{margin: 1.334vw 0 0 1.334vw}
+    #mueMonth{margin: 1.334vw 0 0 1.334vw}
     #interest{margin: 1.334vw 2.664vw 0 0}
     #fiatDay{margin: 1.334vw 0 0 2.664vw}
-    #dashDay{margin: 1.334vw 0 0 1.334vw}
+    #mueDay{margin: 1.334vw 0 0 1.334vw}
     #header4{margin: 1.334vw 2.664vw 0 0}
     #shareMn{margin: 1.332vw 2.664vw 0 0}
     #header3{margin: 1.332vw 0 0 2.664vw}
@@ -309,8 +309,8 @@ hr{ border: none; background-color: #747474; height: 0.3%; margin-top: 4%; }
     padding: 0 1.998vw 0 2.664vw}
     div.o{margin-left: 3.33vw}
     div.v{margin-left: 2.664vw}
-    #value .v, #dashValue .v{margin-top: 1.332vw}
-    #value .o, #dashValue .o{margin-left: 3.663vw;}
+    #value .v, #mueValue .v{margin-top: 1.332vw}
+    #value .o, #mueValue .o{margin-left: 3.663vw;}
     #bottomLeft #trenner{
     height: 7.992vw; margin-top: 0.866vw}
 }
@@ -326,12 +326,14 @@ hr{ border: none; background-color: #747474; height: 0.3%; margin-top: 4%; }
 }
 
 @-webkit-keyframes progress {
-    from { width: 0% }
+    from { width: 0
+    }
     to { width: 100% }
 }
 
 @keyframes progress {
-    from { width: 0% }
+    from { width: 0
+    }
     to { width: 100% }
 }
 

@@ -1,7 +1,7 @@
 
 // refactored by: moocowmoo - moocowmoo@dash.org
 
-// dashtv object instantiation
+// muetv object instantiation
 (function(scope, endpoint){
 
     // set locale for page and number formatting
@@ -34,7 +34,7 @@
             }
         }
         return numeral(num).format(fmt);
-    }
+    };
 
     // conditionally truncate decimal places for display
     var fmtCurrShort = function(input){
@@ -42,12 +42,12 @@
             return fmtCurr(input, 0);
         }
         return fmtCurr(input, 2);
-    }
+    };
 
     var DOWN=0, UP=1;
 
-    // dashtv object definition
-    var DTV = (function(endpoint){
+    // muetv object definition
+    var MTV = (function(endpoint){
 
         return {
 
@@ -64,7 +64,7 @@
             data: {
                 polling: 0,
                 connstate: {"last": UP, "now": UP},
-                dash: 1000,
+                mue: 500000,
                 curr: "USD",
                 addr: null,
                 mn: 1,
@@ -102,21 +102,21 @@
                 var self = this;
 
                 // get initial data
-                this.pollDashData(self);
+                this.pollMueData(self);
 
                 // set polling timers
-                this.setTimer('netdata', function(){ self.pollDashData(self)}, 60 * 1000);  // once per minute
+                this.setTimer('netdata', function(){ self.pollMueData(self)}, 60 * 1000);  // once per minute
                 this.setTimer('userdata', function(){ self.pollUserData(self)}, 60 * 60 * 1000);  // once per hour
 
                 // pull any needed data and refresh page
                 this.reload();
             },
             connState: function(label,state) {
-                if (state != undefined ) { this.data.connstate[label] = state; }
+                if (state !== undefined ) { this.data.connstate[label] = state; }
                 return this.data.connstate[label];
             },
             setTimer: function(id, f, interval) {
-                if (this.timers[id] != undefined) {
+                if (this.timers[id] !== undefined) {
                     clearInterval(this.timers[id]);
                     this.timers[id] = null;
                 }
@@ -124,11 +124,11 @@
                 return;
             },
 
-            // update object with latest dash data
-            pollDashData: function(self) {
+            // update object with latest mue data
+            pollMueData: function(self) {
                 self.data.polling += 1;
 
-                if(self.data.curr != "USD"){
+                if(self.data.curr !== "USD"){
                     self.data.polling += 1;
                     $.getJSON(self.endpoint + "curr.json", function(result){
                         if(typeof result[self.data.curr] != "undefined"){
@@ -143,7 +143,8 @@
                     self.data.rate = 1;
                 }
 
-                $.getJSON( self.endpoint + "data.json", function(result){
+                // $.getJSON( self.endpoint + "data.json", function(result){
+                $.getJSON( "data.json", function(result){
                     if(typeof result["totalsupply"] != "undefined"){
                         //result["totalsupply"] = result["totalsupply"].replace(/\,/g, "");
                         for ( key in result ) {
@@ -164,7 +165,7 @@
                     self.data.polling += 1;
                     $.post(this.endpoint + 'value.php', {addr: this.data.addr}, function(result){
                         if (result != undefined) {
-                            self.updateData({dash: result});
+                            self.updateData({mue: result});
                         }
                         self.data.polling -= 1;
                     });
@@ -190,9 +191,9 @@
                 // pull fresh data on currency change
                 if ( this.data.lastcurr != this.data.curr) {
 
-                    // get latest dash data
+                    // get latest mue data
                     var self = this;
-                    this.pollDashData(self);
+                    this.pollMueData(self);
                 }
 
                 // update the page content
@@ -205,15 +206,15 @@
 
                 s.currency_labels = $("span.c");
 
-                s.value_main        = $("#value>div.v");
+                s.value_main        = $("#value").find(">div.v");
                 s.value_fiatMonth   = $("#fiatMonth>div.v");
                 s.value_fiatDay     = $("#fiatDay>div.v");
-                s.value_fiatDash    = $("#fiatDash>div.v");
+                s.value_fiatMue    = $("#fiatMue>div.v");
                 s.value_fiatBTC     = $("#fiatBTC>div.v");
-                s.value_dash        = $("#dashValue>div.v");
-                s.value_dashMonth   = $("#dashMonth>div.v");
-                s.value_dashDay     = $("#dashDay>div.v");
-                s.value_btcDash     = $("#btcDash>div.v");
+                s.value_mue        = $("#mueValue>div.v");
+                s.value_mueMonth   = $("#mueMonth>div.v");
+                s.value_mueDay     = $("#mueDay>div.v");
+                s.value_btcMUE     = $("#btcMue>div.v");
                 s.value_shareMn     = $("#shareMn>div.v");
                 s.value_shareSupply = $("#shareSupply>div.v");
                 s.value_interest    = $("#interest>div.v");
@@ -260,7 +261,7 @@
                         s.body.removeClass("err");
                         s.box.attr('title','');
                         var self = this;
-                        this.setTimer('netdata', function(){ self.pollDashData(self)}, 60 * 1000);
+                        this.setTimer('netdata', function(){ self.pollMueData(self)}, 60 * 1000);
                     }
                     else {
                         s.body.addClass("err");
@@ -268,7 +269,7 @@
                         s.update_bar.removeClass("hidden");
                         // reference for callbacks
                         var self = this;
-                        this.setTimer('netdata', function(){ self.pollDashData(self)}, 15 * 1000);
+                        this.setTimer('netdata', function(){ self.pollMueData(self)}, 15 * 1000);
                     }
                 }
 
@@ -287,10 +288,10 @@
                 this.toggle = !this.toggle;
                 switch(this.toggle) {
                     case true:
-                        document.title = "DashTV - " + fmtCurrShort(data.dash * data.fiatprice) + " " + this.data.curr;
+                        document.title = "MueTV - " + fmtCurrShort(data.mue * data.fiatprice) + " " + this.data.curr;
                         break;
                     case false:
-                        document.title = "DashTV - " + fmtCurrShort(data.fiatprice) + " " + this.data.curr;
+                        document.title = "MueTV - " + fmtCurrShort(data.fiatprice) + " " + this.data.curr;
                         break;
                 };
 
@@ -298,18 +299,18 @@
                 var fmt = this.data.formatted;
 
                 // populate currency labels
-                s.currency_labels   .html(data.curr)
+                s.currency_labels   .html(data.curr);
 
                 // populate values
                 s.value_main        .html(fmt.value      );
                 s.value_fiatMonth   .html(fmt.fiatMonth  );
                 s.value_fiatDay     .html(fmt.fiatDay    );
-                s.value_fiatDash    .html(fmt.fiatDash   );
+                s.value_fiatMue    .html(fmt.fiatMue   );
                 s.value_fiatBTC     .html(fmt.fiatBTC    );
-                s.value_dash        .html(fmt.dashValue  );
-                s.value_dashMonth   .html(fmt.dashMonth  );
-                s.value_dashDay     .html(fmt.dashDay    );
-                s.value_btcDash     .html(fmt.btcDash    );
+                s.value_mue        .html(fmt.mueValue  );
+                s.value_mueMonth   .html(fmt.mueMonth  );
+                s.value_mueDay     .html(fmt.mueDay    );
+                s.value_btcMUE     .html(fmt.btcMue    );
                 s.value_shareMn     .html(fmt.shareMn    );
                 s.value_shareSupply .html(fmt.sharesupply);
                 s.value_interest    .html(fmt.interest   );
@@ -326,25 +327,25 @@
                     this.data[key] = o[key];
                 }
 
-                this.data.mn = math.floor(this.data.dash/1000);
+                this.data.mn = math.floor(this.data.mue/500000);
                 this.data.fiatprice = this.data.pricebtcusd * this.data.btcprice * this.data.rate;
                 this.data.fiatbtc = this.data.pricebtcusd * this.data.rate;
 
                 var fmt  = this.data.formatted;
                 var data = this.data;
 
-                fmt.value       = fmtCurrShort(data.dash * data.fiatprice);
-                fmt.fiatMonth   = fmtCurrShort(data.dashdaily * 365 / 12 * data.fiatprice * data.mn);
-                fmt.fiatDay     = fmtCurrShort(data.dashdaily * data.fiatprice * data.mn);
-                fmt.fiatDash    = fmtCurrShort(data.fiatprice);
+                fmt.value       = fmtCurrShort(data.mue * data.fiatprice);
+                fmt.fiatMonth   = fmtCurrShort(data.muedaily * 365 / 12 * data.fiatprice * data.mn);
+                fmt.fiatDay     = fmtCurrShort(data.muedaily * data.fiatprice * data.mn);
+                fmt.fiatMue    = fmtCurrShort(data.fiatprice);
                 fmt.fiatBTC     = fmtCurrShort(data.fiatbtc);
-                fmt.dashValue   = fmtCurrShort(data.dash);
-                fmt.dashMonth   = fmtCurrShort(data.dashdaily * 365 / 12 * data.mn);
-                fmt.dashDay     = fmtCurrShort(data.dashdaily * data.mn);
-                fmt.btcDash     = fmtCurr(data.btcprice, 5);
+                fmt.mueValue   = fmtCurrShort(data.mue);
+                fmt.mueMonth   = fmtCurrShort(data.muedaily * 365 / 12 * data.mn);
+                fmt.mueDay     = fmtCurrShort(data.muedaily * data.mn);
+                fmt.btcMue     = fmtCurr(data.btcprice, 5);
                 fmt.shareMn     = fmtCurr(data.mn / data.mncount * 100, 2) + "%";
-                fmt.interest    = fmtCurr(data.dashdaily * 365/1000 * 100, 2) + "%";
-                fmt.sharesupply = fmtCurr(data.dash/data.totalsupply * 100, 3) + "%";
+                fmt.interest    = fmtCurr(data.muedaily * 365/500000 * 100, 2) + "%";
+                fmt.sharesupply = fmtCurr(data.mue/data.totalsupply * 100, 3) + "%";
 
             },
 
@@ -362,7 +363,7 @@
 
                 // support legacy variable name 'value'
                 if (this.data.value) {
-                    this.data.dash = this.data.value;
+                    this.data.mue = this.data.value;
                 }
             }
 
@@ -370,18 +371,18 @@
 
     })(endpoint);
 
-    // attach DTV object to window scope
-    scope.dashtv = DTV;
+    // attach MTV object to window scope
+    scope.muetv = MTV;
 
-})(this, 'https://dash-news.de/dashtv/');
+})(this, 'https://muetv.com/');
 
 
-// invoke dashtv.init() on page load
+// invoke muetv.init() on page load
 $(document).ready(function(){
 
     // attach hash-change handler
-    window.onhashchange = function(){ dashtv.reload(); };
+    window.onhashchange = function(){ muetv.reload(); };
 
     // launch it!
-    dashtv.init();
+    muetv.init();
 });
