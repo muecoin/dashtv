@@ -128,8 +128,9 @@
             pollMueData: function(self) {
                 self.data.polling += 1;
 
-                if(self.data.curr !== "USD"){
+               if(self.data.curr !== "USD" && self.data.curr !== "EUR" && self.data.curr !== "CNY" && self.data.curr !== "GBP" && self.data.curr !== "CAD" && self.data.curr !== "RUB" && self.data.curr !== "HDK" && self.data.curr !== "JPY" && self.data.curr !== "AUD" && self.data.curr !== "CHF" && self.data.curr !== "PLN"      ){
                     self.data.polling += 1;
+                    window.location.reload(false); 
                     $.getJSON(self.endpoint + "curr.json", function(result){
                         if(typeof result[self.data.curr] != "undefined"){
                             self.data.rate = result[self.data.curr];
