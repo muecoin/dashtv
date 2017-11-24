@@ -46,7 +46,7 @@ def data_to_json(d):
 def build_data():
     daily_blocks = 2050
     mn_rewards_mue = 18
-    mue_btc = get_mue_btc()[0]['High']
+    mue_btc = get_mue_btc()[0]['Last']
     btc_usd = get_btc_rate()['USD']['last']
     mue_usd = btc_usd * mue_btc
     mn_count = get_mn_count()
