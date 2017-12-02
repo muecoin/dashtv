@@ -160,6 +160,11 @@ a, a:visited{ color: #a1a1a1 }
     margin-top: 2vh;
 }
 
+#value .v, #mueValue .vm{
+    font-size: 60%;
+    margin-top: 2vh;
+}
+
 #value .o, #mueValue .o{
     font-size: 65%;
     margin: -0.4em 0 0 5.5vh;
@@ -167,6 +172,12 @@ a, a:visited{ color: #a1a1a1 }
 
 div.v{
     margin-left: 4vh;
+}
+
+div.vm{
+    margin-left: 2vh;
+    margin-top: 2vh;
+    font-size: 75%;
 }
 
 div.o{

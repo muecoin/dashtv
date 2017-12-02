@@ -343,7 +343,7 @@
                 fmt.mueValue   = fmtCurrShort(data.mue);
                 fmt.mueMonth   = fmtCurrShort(data.muedaily * 365 / 12 * data.mn);
                 fmt.mueDay     = fmtCurrShort(data.muedaily * data.mn);
-                fmt.btcMue     = fmtCurr(data.btcprice, 5);
+                fmt.btcMue     = fmtCurr(data.btcprice, 8);
                 fmt.shareMn     = fmtCurr(data.mn / data.mncount * 100, 2) + "%";
                 fmt.interest    = fmtCurr(data.muedaily * 365/500000 * 100, 2) + "%";
                 fmt.sharesupply = fmtCurr(data.mue/data.totalsupply * 100, 3) + "%";
